@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int testCases;
+    cout << "Enter number of test cases: ";
+    cin >> testCases;
+
+    for (int t = 0; t < testCases; t++) {
+        int n;
+        cout << "Enter size of array: ";
+        cin >> n;
+
+        long long arr[100000]; // assuming maximum size
+        cout << "Enter array elements: ";
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+
+        // Initialize the maximum sum variables
+        long long maxEndingHere = arr[0]; // max sum ending at current index
+        long long maxSoFar = arr[0];      // overall max sum
+
+        // Loop through the array to calculate maximum subarray sum
+        for (int i = 1; i < n; i++) {
+            // Either start a new subarray at arr[i] or extend previous subarray
+            if (maxEndingHere + arr[i] > arr[i]) {
+                maxEndingHere = maxEndingHere + arr[i];
+            } else {
+                maxEndingHere = arr[i];
+            }
+
+            // Update overall maximum sum if needed
+            if (maxEndingHere > maxSoFar) {
+                maxSoFar = maxEndingHere;
+            }
+        }
+
+        cout << "Maximum subarray sum is: " << maxSoFar << endl;
+    }
+
+    return 0;
+}
